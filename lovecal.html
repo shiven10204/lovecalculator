@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Calculator</title>
+    <style>
+*{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-image: url(lovebg.webp);
+overflow: hidden;
+}
+.main{
+    text-align:center; 
+     margin: 0 auto; 
+     display: flex; 
+     align-items: center;
+      flex-direction: column; 
+      height: 100vh;
+
+
+}
+input::placeholder {
+        color: #fff3f3; 
+    }
+    </style>
+</head>
+<body>
+<div class="main">
+    <h1 style="color: aliceblue; font-size: xxx-large;"> Love Calculator</h1>
+    <input type="text" placeholder="Enter name 1" id="sname" style="color: aliceblue; font-size: x-large; border-color: aliceblue; border-radius: 5px; padding: 20px;"><br>
+    <input type="text" placeholder="Enter name 2" id="fname" style="color: aliceblue; font-size: x-large; border-color: aliceblue; border-radius: 5px; padding: 20px;"><br>
+    <button type="submit" onclick="lvcal()" style="cursor: pointer; font-size: xx-large; color: aliceblue; padding:10px; border-radius: 10px; border-color: aliceblue;" >Get Result</button>
+    <h2 id="perc" style=" font-size: xxx-large; color: aliceblue;"></h2>
+    <p id="message" style=" font-size: x-large; color: aliceblue;"></p>
+    <p>developed by Shiven Aggarwal</p>
+
+</div>
+    
+    <script>
+
+        function lvcal() {
+           
+            let sname = document.getElementById('sname').value;
+            let fname = document.getElementById('fname').value;
+if(sname.length>0 && fname.length>0){
+            const options = {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': 'd2a0744747msh0ee20003ca624ddp12ebf7jsne99dc2f704e6',
+                    'X-RapidAPI-Host': 'love-calculator.p.rapidapi.com'
+                }
+            };
+
+            fetch(`https://love-calculator.p.rapidapi.com/getPercentage?sname=${sname}&fname=${fname}`, options)
+                .then(response => response.json())
+                .then(response => {
+                document.getElementById('perc').innerText= response.percentage + '%';
+                document.getElementById('message').innerText= response.result;
+
+                })
+                .catch(err => console.error(err));
+}else{
+    alert('Write Names!!')
+}}
+    </script>
+
+</body>
+</html>
